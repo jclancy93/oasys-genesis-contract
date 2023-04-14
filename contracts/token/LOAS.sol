@@ -151,7 +151,7 @@ contract LOAS is ERC20 {
         ClaimInfo storage originalClaimInfo = claimInfo[originalClaimer[msg.sender]];
         if (amount > originalClaimInfo.amount - originalClaimInfo.claimed) revert OverAmount();
 
-        _burn(msg.sender, amount);
+        _burn(originalClaimer[msg.sender], amount);
         (bool success, ) = originalClaimInfo.from.call{ value: amount }("");
         if (!success) revert TransferFailed();
 
